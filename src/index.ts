@@ -8,7 +8,7 @@ import session from "express-session";
 import redis from "redis";
 import { buildSchema } from "type-graphql";
 
-import { __prod__ } from "./constants";
+import { __prod__, COOKIE_NAME } from "./constants";
 import mikroOrmConfig from "./mikro-orm.config";
 import { HelloResolver } from "./resolvers/hello";
 import { ReservationResolver } from "./resolvers/reservation";
@@ -34,7 +34,7 @@ const main = async () => {
 
   app.use(
     session({
-      name: "qid",
+      name: COOKIE_NAME,
       store: new RedisStore({ client: redisClient, disableTouch: true }),
       secret: process.env.SESSION_SECRET!,
       resave: true,
